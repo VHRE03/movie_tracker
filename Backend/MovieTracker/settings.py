@@ -79,8 +79,16 @@ WSGI_APPLICATION = 'MovieTracker.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'mssql',
+        'NAME': 'movie_tracker_db',
+        'USER': 'admin01@vhre2.database.windows.net',
+        'PASSWORD': 'vhreVHRE117',
+        'HOST': 'vhre2.database.windows.net',
+        'PORT': '1433',
+
+        'OPTIONS': {
+            'driver': 'ODBC Driver 17 for SQL Server',
+        },
     }
 }
 
