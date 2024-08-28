@@ -8,5 +8,7 @@ class Pelicula(models.Model):
     genero = models.CharField(max_length = 50)
     duracion = models.IntegerField()
     sinopsis = models.TextField()
-    poster = models.CharField(max_length = 255)
+    poster = models.CharField(max_length = 255) 
     
+    def __str__(self):
+        return self.titulo
