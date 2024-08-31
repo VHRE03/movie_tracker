@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -80,16 +81,12 @@ WSGI_APPLICATION = 'MovieTracker.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'mssql',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'movie_tracker_db',
-        'USER': 'admin01@vhre2.database.windows.net',
-        'PASSWORD': 'vhreVHRE117',
-        'HOST': 'vhre2.database.windows.net',
-        'PORT': '1433',
-
-        'OPTIONS': {
-            'driver': 'ODBC Driver 17 for SQL Server',
-        },
+        'USER': 'vhre',
+        'PASSWORD': '12345',
+        'HOST': '172.23.207.237',
+        'PORT': '5432',
     }
 }
 
@@ -142,3 +139,5 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:9000",
 ]
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

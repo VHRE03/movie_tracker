@@ -9,7 +9,7 @@ class Pelicula(models.Model):
     genero = models.CharField(max_length = 50)
     duracion = models.IntegerField()
     sinopsis = models.TextField()
-    poster = models.CharField(max_length = 255)
+    poster = models.ImageField(upload_to = 'images/')
     usuario = models.ForeignKey(Usuario, on_delete = models.CASCADE, related_name = 'peliculas')
     
     def __str__(self):
