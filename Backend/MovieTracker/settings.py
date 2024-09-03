@@ -85,7 +85,7 @@ DATABASES = {
         'NAME': 'movie_tracker_db',
         'USER': 'vhre',
         'PASSWORD': '12345',
-        'HOST': '172.23.207.237',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
@@ -133,10 +133,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
-    "https://example.com",
-    "https://sub.example.com",
-    "http://localhost:8080",
-    "http://127.0.0.1:9000",
+    " http://localhost:5173"
 ]
 
 MEDIA_URL = '/media/'
