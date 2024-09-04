@@ -1,14 +1,23 @@
-import { useEffect } from "react"; 
-import { getAllMovies } from '../api/movieTracker.api'
+import { useEffect, useState } from "react";
+import { getAllMovies } from "../api/movieTracker.api";
+import { MoviesCard } from "./MoviesCard";
 
 export function MovieList() {
-    useEffect(() => {
-        async function loadMovies() {
-            const res = await getAllMovies();
-            console.log(res);
-        }
-        loadMovies();
-    }, []);
+  const [movies, setMovies] = useState([]);
 
-    return <div>Movies List</div>;
+  useEffect(() => {
+    async function loadMovies() {
+      const res = await getAllMovies();
+      setMovies(res.data);
+    }
+    loadMovies();
+  }, []);
+
+  return (
+    <div>
+      {movies.map((movie) => (
+        <MoviesCard key={movie.id} movie={movie} />
+      ))}
+    </div>
+  );
 }
