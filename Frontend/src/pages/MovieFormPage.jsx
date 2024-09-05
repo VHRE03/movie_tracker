@@ -1,16 +1,23 @@
 import { useForm } from "react-hook-form";
+import { createMovie } from "../api/movieTracker.api";
 
 export function MovieFormPage(params) {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const onSubmit = handleSubmit((data) => {
+  const onSubmit = handleSubmit(async (data) => {
+    const res = await createMovie(data);
     console.log(data);
   });
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} encType="multipart/form-data">
       <label htmlFor="">Titulo</label>
       <input type="text" {...register("titulo", { require: true })} />
+      {errors.titulo && <span>This field is required</span>}
 
       <label htmlFor="">Director</label>
       <input type="text" {...register("director", { require: true })} />
