@@ -28,3 +28,5 @@ export const createMovie = (movie) => {
     },
   });
 };
+
+export const deleteMovie = (id) => movieTrackerApi.delete(`/${id}`);
