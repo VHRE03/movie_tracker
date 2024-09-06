@@ -1,5 +1,11 @@
 import { useForm } from "react-hook-form";
-import { createMovie, deleteMovie } from "../api/movieTracker.api";
+import { useEffect, useState } from "react";
+import {
+  createMovie,
+  deleteMovie,
+  getMovie,
+  updateMovie,
+} from "../api/movieTracker.api";
 import { useNavigate, useParams } from "react-router-dom";
 
 export function MovieFormPage() {
@@ -7,16 +13,39 @@ export function MovieFormPage() {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm();
 
+  const [posterUrl, setPosterUrl] = useState("");
   const navigate = useNavigate();
   const params = useParams();
-  console.log(params);
 
   const onSubmit = handleSubmit(async (data) => {
-    const res = await createMovie(data);
-    console.log(data);
+    if (params.id) {
+      console.log(data);
+      await updateMovie(params.id, data);
+    } else {
+      await createMovie(data);
+    }
+    navigate("/movies");
   });
+
+  useEffect(() => {
+    async function loadMovie() {
+      if (params.id) {
+        const { data } = await getMovie(params.id);
+        setValue("titulo", data.titulo);
+        setValue("director", data.director);
+        setValue("anio_lanzamineto", data.anio_lanzamineto);
+        setValue("genero", data.genero);
+        setValue("duracion", data.duracion);
+        setValue("sinopsis", data.sinopsis);
+        setValue("usuario", data.usuario);
+        setPosterUrl(data.poster); // Guardar la URL del poster
+      }
+    }
+    loadMovie();
+  }, []);
 
   return (
     <div>
@@ -24,34 +53,34 @@ export function MovieFormPage() {
         <label htmlFor="">Titulo</label>
         <input type="text" {...register("titulo", { require: true })} />
         {errors.titulo && <span>This field is required</span>}
-
         <label htmlFor="">Director</label>
         <input type="text" {...register("director", { require: true })} />
-
         <label htmlFor="">Año de lanzamineto</label>
         <input
           type="text"
           {...register("anio_lanzamineto", { require: true })}
         />
-
         <label htmlFor="">Genero</label>
         <input type="text" {...register("genero", { require: true })} />
-
         <label htmlFor="">Duracion</label>
         <input type="number" {...register("duracion", { require: true })} />
-
         <label htmlFor="">Sinopsis</label>
         <textarea
           name=""
           {...register("sinopsis", { require: true })}
         ></textarea>
-
+        {/* Mostrar la imagen existente si hay una */}
+        {posterUrl && (
+          <div>
+            <label>Imagen actual:</label>
+            <img src={posterUrl} alt="Poster de la película" width="200" />
+          </div>
+        )}
         <label htmlFor="">Poster</label>
-        <input type="file" {...register("poster", { require: true })} />
+        <input type="file" {...register("poster")} />
 
         <label htmlFor="">Usuario</label>
         <input type="number" {...register("usuario", { require: true })} />
-
         <button>Save</button>
       </form>
 

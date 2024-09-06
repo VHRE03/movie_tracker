@@ -10,7 +10,7 @@ class Pelicula(models.Model):
     genero = models.CharField(max_length = 50)
     duracion = models.IntegerField()
     sinopsis = models.TextField()
-    poster = models.ImageField(upload_to = 'images/')
+    poster = models.ImageField(upload_to = 'images/', blank=True, null=True)
     usuario = models.ForeignKey(Usuario, on_delete = models.CASCADE, related_name = 'peliculas')
     
     def delete(self, *args, **kwargs):

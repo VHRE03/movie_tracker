@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
+    'django_cleanup.apps.CleanupConfig',
     'peliculas',
     'usuarios'
 ]
@@ -136,5 +137,6 @@ CORS_ALLOWED_ORIGINS = [
     " http://localhost:5173"
 ]
 
+DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
