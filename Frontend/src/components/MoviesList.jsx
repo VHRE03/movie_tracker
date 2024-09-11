@@ -14,7 +14,7 @@ export function MovieList() {
   }, []);
 
   return (
-    <div>
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 justify-items-center">
       {movies.map((movie) => (
         <MoviesCard key={movie.id} movie={movie} />
       ))}

@@ -7,6 +7,7 @@ import {
   updateMovie,
 } from "../api/movieTracker.api";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 export function MovieFormPage() {
   const {
@@ -22,10 +23,11 @@ export function MovieFormPage() {
 
   const onSubmit = handleSubmit(async (data) => {
     if (params.id) {
-      console.log(data);
       await updateMovie(params.id, data);
+      toast.success("Pelicula actualizada");
     } else {
       await createMovie(data);
+      toast.success("Pelicula creada");
     }
     navigate("/movies");
   });
@@ -90,6 +92,7 @@ export function MovieFormPage() {
             const accepted = window.confirm("are you sure?");
             if (accepted) {
               await deleteMovie(params.id);
+              toast.success("Pelicula eliminada");
               navigate("/movies");
             }
           }}
